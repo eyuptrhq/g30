@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gizli Sohbet</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        #mesajlar { height: 400px; border: 1px solid #ccc; padding: 10px; overflow-y: scroll; margin-bottom: 10px; }
+        #mesajInput { width: 80%; padding: 8px; }
+        button { padding: 8px 15px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>Gizli Sohbet</h1>
+    <div id="mesajlar"></div>
+    <input type="text" id="mesajInput" placeholder="Mesajınızı yazın...">
+    <button onclick="mesajGonder()">Gönder</button>
+
+    <script>
+        const mesajlarDiv = document.getElementById("mesajlar");
+        const mesajInput = document.getElementById("mesajInput");
+
+        function mesajGonder() {
+            const mesaj = mesajInput.value.trim();
+            if (mesaj === "") return;
+
+            const mesajElementi = document.createElement("div");
+            mesajElementi.textContent = `Sen: ${mesaj}`;
+            mesajlarDiv.appendChild(mesajElementi);
+            mesajInput.value = "";
+
+            // Sayfayı kaydederek diğer kişinin görmesini sağlayabilirsiniz.
+            // Gerçek zamanlı iletişim için Firebase veya başka bir servis eklenebilir.
+            mesajlarDiv.scrollTop = mesajlarDiv.scrollHeight;
+        }
+
+        // Klavyeden Enter tuşu ile gönderme
+        mesajInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") mesajGonder();
+        });
+    </script>
+</body>
+</html>
